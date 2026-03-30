@@ -1,5 +1,11 @@
 // Final Integration Version: Pointing to Real Spring Boot Backend
-const BASE_URL = 'http://localhost:8081';
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+if (!BASE_URL) {
+  console.error('VITE_API_URL is not defined in your environment variables!');
+  throw new Error('API URL not defined. Please check your .env file or Vercel settings.');
+}
+
 
 /**
  * Custom fetch wrapper to communicate with the Spring Boot backend.
