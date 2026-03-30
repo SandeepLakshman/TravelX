@@ -248,9 +248,15 @@ const Flights = () => {
 
             {/* Flight Results */}
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-32">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-500 mb-4"></div>
-                <p className="text-teal-100 animate-pulse font-medium">Analyzing real-time flight data...</p>
+              <div className="flex flex-col items-center justify-center py-32 text-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-500 mb-6"></div>
+                <div className="space-y-4">
+                  <p className="text-teal-100 animate-pulse font-medium text-lg">Analyzing real-time flight data...</p>
+                  <p className="text-teal-500/80 text-sm max-w-sm mx-auto">
+                    Note: The backend may take up to 60 seconds to "wake up" from sleep. 
+                    If this is your first request, please wait a moment.
+                  </p>
+                </div>
               </div>
             ) : sortedAndFilteredFlights.length === 0 ? (
               <div className="text-center py-20 bg-[var(--color-brand-card)] rounded-3xl border border-teal-900/50">

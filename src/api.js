@@ -1,5 +1,5 @@
 // Final Integration Version: Pointing to Real Spring Boot Backend
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '');
 
 if (!BASE_URL) {
   console.error('VITE_API_URL is not defined in your environment variables!');
@@ -19,11 +19,16 @@ async function fetchWrapper(endpoint, options = {}) {
     ...options.headers,
   };
 
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       ...options,
       headers,
+      signal: controller.signal,
     });
+    clearTimeout(id);
 
     let data;
     const contentType = response.headers.get('content-type');
