@@ -26,7 +26,15 @@ const Login = () => {
       showAppToast('Authentication successful. Welcome back!');
       navigate('/');
     } catch (err) {
-      showAppToast(err.response?.data || 'Invalid credentials. Please try again.', 'error');
+      let errorMessage = 'Invalid credentials. Please try again.';
+      if (err.name === 'AbortError') {
+        errorMessage = 'Server is taking too long to respond. It might be waking up from sleep. Please try again in 30 seconds.';
+      } else if (!err.response) {
+        errorMessage = 'Cannot reach the server. Please check your internet or if the backend is running.';
+      } else {
+        errorMessage = err.response.data || errorMessage;
+      }
+      showAppToast(errorMessage, 'error');
       console.error(err);
     } finally {
       setLoading(false);

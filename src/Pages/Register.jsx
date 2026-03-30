@@ -24,7 +24,15 @@ const Register = () => {
       // For now, prompt them to login as per the existing flow but with a premium toast
       navigate('/login');
     } catch (err) {
-      showAppToast(err.response?.data || 'An error occurred during account initialization.', 'error');
+      let errorMessage = 'An error occurred during account initialization.';
+      if (err.name === 'AbortError') {
+        errorMessage = 'Server is taking too long to respond. It might be waking up from sleep. Please try again in 30 seconds.';
+      } else if (!err.response) {
+        errorMessage = 'Cannot reach the server. Please check your internet or if the backend is running.';
+      } else {
+        errorMessage = err.response.data || errorMessage;
+      }
+      showAppToast(errorMessage, 'error');
     } finally {
       setLoading(false);
     }

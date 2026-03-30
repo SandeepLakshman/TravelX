@@ -44,9 +44,15 @@ const Tours = () => {
         </div>
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-32">
-             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-500 mb-4"></div>
-             <p className="text-teal-100 font-medium">Curating best experiences...</p>
+          <div className="flex flex-col items-center justify-center py-32 text-center">
+             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-500 mb-6"></div>
+             <div className="space-y-4">
+               <p className="text-teal-100 animate-pulse font-medium text-lg">Curating best experiences...</p>
+               <p className="text-teal-500/80 text-sm max-w-sm mx-auto">
+                 Connecting to premium travel servers. 
+                 If this takes more than 15s, we'll show our signature collections.
+               </p>
+             </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
